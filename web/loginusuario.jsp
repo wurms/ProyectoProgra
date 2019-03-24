@@ -63,11 +63,12 @@
           <div class="col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2">
             <div class="feature bordered input-with-label text-left">
               <center><h4 class="uppercase">Iniciar Sesión</h4></center>
-              <form method="post" action="login.php" class="form-envio" data-success="¡Bienvenido!" data-error="Complete todos los campos correctamente.">
+              <form method="post" action="AdminServlet" class="form-envio" data-success="¡Espere un momento!" data-error="Complete todos los campos correctamente.">
                 <span>Usuario:</span>
                 <input name="usuario" class="validate-required" type="text" placeholder="Usuario" />
                 <span>Contraseña:</span>
                 <input name="password" class="validate-required" type="password" placeholder="Contraseña" />
+                <input type="hidden" name="formid" value="1"/>
                 <button type="submit">Entrar</button>
               </form>
               <center><span>¿No tienes cuenta? <a href="register.jsp">Click Aquí</a></span></center><br>
@@ -88,43 +89,45 @@
                   </form>
                 </div>
               </div>
-              <%--
-              <?php
-              if(isset($_GET['msg'])){
-                if($_GET['msg']==1){
-                  ?>
-                  <script type="text/javascript">
-                  sweetAlert("¡ERROR!", "¡Usuario incorrecto!", "error");
-                  </script>
-                  <?php
-                }elseif($_GET['msg']==2){
-                  ?>
-                  <script type="text/javascript">
-                  sweetAlert("¡ERROR!", "¡Contraseña incorrecta!", "error");
-                  </script>
-                  <?php
-                }elseif($_GET['msg']==3){
-                  ?>
-                  <script type="text/javascript">
-                  sweetAlert("¡ERROR!", "¡No tiene acceso a esta área!", "error");
-                  </script>
-                  <?php
-                }elseif($_GET['msg']==4){
-                  ?>
-                  <script type="text/javascript">
-                  sweetAlert("¡ERROR!", "¡Usuario deshabilitado!", "error");
-                  </script>
-                  <?php
-                }elseif ($_GET['msg']==5) {
-                  ?>
-                  <script type="text/javascript">
-                  sweetAlert("¡ERROR!", "¡Cliente no habilitado!", "error");
-                  </script>
-                  <?php
-                }
-              }
-              ?>
-              --%>
+              <%
+                  String mensaje = (String) request.getSession().getAttribute("mensaje");
+                  
+                  if (mensaje != null) {
+                          
+                      
+                  if(mensaje.equals("0")){
+                    %>
+                    <script type="text/javascript">
+                    sweetAlert("¡ERROR!", "¡Usuario incorrecto!", "error");
+                    </script>
+                    <%
+                  } else if (mensaje.equals("2")){
+                    %>
+                    <script type="text/javascript">
+                    sweetAlert("¡ERROR!", "¡Contraseña incorrecta!", "error");
+                    </script>
+                    <%
+                  }else if(mensaje.equals("3")){
+                    %>
+                    <script type="text/javascript">
+                    sweetAlert("¡ERROR!", "¡No tiene acceso a esta área!", "error");
+                    </script>
+                    <%
+                  }else if(mensaje.equals("4")){
+                    %>
+                    <script type="text/javascript">
+                    sweetAlert("¡ERROR!", "¡Usuario deshabilitado!", "error");
+                    </script>
+                    <%
+                  }else if (mensaje.equals("5")) {
+                    %>
+                    <script type="text/javascript">
+                    sweetAlert("¡ERROR!", "¡Cliente no habilitado!", "error");
+                    </script>
+                    <%
+                  }
+}
+              %>
             </div>
           </div>
         </div>
