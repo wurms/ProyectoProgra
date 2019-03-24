@@ -859,7 +859,7 @@ $(document).ready(function() {
           $(this).addClass('field-error');
           error = 1;
         } else {
-          var fechamax=Date.parse("08-11-2016");
+          var fechamax=Date.parse("08-11-2019");
           var fechamin=Date.parse("12-31-1900");
           var fecha = Date.parse($(this).val());
           if (fecha >= fechamin && fecha <= fechamax) {

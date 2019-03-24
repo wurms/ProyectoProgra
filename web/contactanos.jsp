@@ -56,6 +56,7 @@
   <!--Final barra-->
   <div class="main-container">
     <section>
+      <br /><br />
       <div class="container">
         <div class="row">
           <div class="col-sm-6 col-md-5">
@@ -77,42 +78,41 @@
             </p>
           </div>
           <div class="col-sm-6 col-md-5 col-md-offset-1 input-with-label text-left">
-            <form method="post" class="form-envio" data-success="¡Gracias por su comentario!" data-error="Complete todos los campos correctamente.">
+              <form method="post" action="MensajesServlet" class="form-envio" data-success="¡Gracias por su comentario!" data-error="Complete todos los campos correctamente.">
               <span>Nombre:</span>
               <input type="text" style="background: whitesmoke;" onpaste="return false" maxlength="30" onkeypress="return sololetras(event)" class="validate-required" name="nombre" placeholder="Nombre" required/>
               <span>Número:</span>
               <input type="text" style="background: whitesmoke;" onpaste="return false" minlength="9" maxlength="9" onkeypress="return solonumeros(this, '####-####',event)" class="validate-required validate-cellphone" name="telefono" placeholder="Teléfono" required/>
               <span>Mensaje</span>
-              <textarea class="validate-required" maxlength="150" name="comentario" rows="6" placeholder="Mensaje" required></textarea>
-              <button type="submit">Enviar Mensaje</button>
+              <textarea class="validate-required" maxlength="150" name="mensaje" rows="6" placeholder="Mensaje" required></textarea>
+              <input type="hidden" name="formid" value="1" />
+              <button type="submit">Enviar Mensaje</button>${mensaje}
             </form>
-            <!--
-            <?php
-            if (isset($_POST['nombre'])) {
-              if(@$var){
-                ?>
+            <%
+            String mensaje = (String) request.getSession().getAttribute("mensaje");
+                  
+            if (mensaje != null) {
+              if(mensaje.equals("1")){
+                %>
                 <script type="text/javascript">
                 swal("¡BUEN TRABAJO!", "¡Gracias por su comentario!", "success")
                 </script>
-                <?php
+                <%
               } else {
-                ?>
+                %>
                 <script type="text/javascript">
                 sweetAlert("¡ERROR!", "¡Intenta en otro momento!", "error");
                 </script>
-                <?php
+                <%
               }
             }
-            ?>
-            -->
+            %>
           </div>
         </div>
         <!--final columna-->
       </div>
       <!--final contenedor-->
       <br />
-              <br />
-              <br />
               <br />
               <br />
               <br />

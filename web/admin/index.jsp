@@ -1,15 +1,18 @@
-<?php
-session_start();
-include("../conexion.php");
-if($_SESSION['nivel']!=1){
-  session_destroy();
-  header("location: ../loginusuario.php?msg=3");
-  exit();
-}
-$aid = $_SESSION['aid'];
-$consulta = "SELECT * FROM tbadmin WHERE aid='$aid'";
-$var = $con->query($consulta)->fetch_array();
-?>
+<%@page import="programmer.pojo.AdminObj"%>
+<%@page import="java.util.ArrayList"%>
+<%
+    String nivel = (String) request.getSession().getAttribute("nivel");
+    if(nivel==null){
+        request.getSession().setAttribute("mensaje", "3");
+            response.sendRedirect("../loginusuario.jsp");
+    } else {
+        if (!nivel.equals("0")) {
+            request.getSession().setAttribute("mensaje", "3");
+            response.sendRedirect("../loginusuario.jsp");    
+        }
+    }
+    ArrayList<AdminObj> admin = (ArrayList<AdminObj>) request.getSession().getAttribute("admin");
+%>
 <!doctype html>
 <html lang="es">
 <head>
@@ -31,8 +34,8 @@ $var = $con->query($consulta)->fetch_array();
     <nav class="bg-dark">
       <div class="nav-bar">
         <div class="module left">
-          <a href="index.php">
-            <h5>Pawnshop System</h5>
+          <a href="index.jsp">
+            <h5>Seguros El Salvador</h5>
           </a>
         </div>
         <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
@@ -42,7 +45,7 @@ $var = $con->query($consulta)->fetch_array();
           <div class="module left">
             <ul class="menu">
               <li>
-                <a href="index.php">
+                <a href="index.jsp">
                   Inicio
                 </a>
               </li>
@@ -149,25 +152,13 @@ $var = $con->query($consulta)->fetch_array();
                 </ul>
               </li>
               <li>
-                <a href="../cerrar.php">
+                <a href="../AdminServlet?formid=2">
                   Salir
                 </a>
               </li>
             </ul>
           </div>
           <!--Final del menu-->
-          <div class="module widget-handle language left">
-            <ul class="menu">
-              <li class="has-dropdown">
-                <a href="index.php">ESPAÃ‘OL</a>
-                <ul>
-                  <li>
-                    <a href="indexen.php">ENGLISH</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
         </div>
         <!--Final idioma-->
       </div>
@@ -179,15 +170,15 @@ $var = $con->query($consulta)->fetch_array();
       <ul class="slides">
         <li class="overlay image-bg bg-light">
           <div class="background-image-holder">
-            <img alt="image" class="background-image" src="../img/jewelry.jpg" />
+            <img alt="image" class="background-image" src="../img/download.jpg" />
           </div>
           <div class="container v-align-transform">
             <div class="row">
               <div class="col-sm-10 col-sm-offset-1 text-center">
-                <h1 class="mb40 mb-xs-16 large">Â¡Bienvenido!</h1>
+                <h1 class="mb40 mb-xs-16 large">¡Bienvenido!</h1>
                 <h6 class="uppercase mb16">Administrador.</h6>
                 <p class="lead mb40">
-                  <?=$var['nombre']?> <?=$var['apellido']?>
+                  ${admin[0].getNombre()} ${admin[0].getApellido()}
                 </p>
               </div>
             </div>
@@ -197,15 +188,15 @@ $var = $con->query($consulta)->fetch_array();
         </li>
         <li class="overlay image-bg">
           <div class="background-image-holder">
-            <img alt="image" class="background-image" src="../img/jewelry.jpg" />
+            <img alt="image" class="background-image" src="../img/download.jpg" />
           </div>
           <div class="container v-align-transform">
             <div class="row">
               <div class="col-sm-offset-1 text-center col-sm-10">
-                <h1 class="mb40 mb-xs-16 large">Â¡Bienvenido!</h1>
+                <h1 class="mb40 mb-xs-16 large">¡Bienvenido!</h1>
                 <h6 class="uppercase mb16">Administrador</h6>
                 <p class="lead mb40">
-                  <?=$var['nombre']?> <?=$var['apellido']?>
+                  ${admin[0].getNombre()} ${admin[0].getApellido()}
                 </p>
               </div>
             </div>

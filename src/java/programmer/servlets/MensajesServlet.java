@@ -1,7 +1,6 @@
 package programmer.servlets;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,13 +14,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import programmer.objects.AdminQuery;
 import programmer.objects.Query;
-import programmer.pojo.AdminObj;
 
-@WebServlet(name = "AdminServlet", urlPatterns = {"/AdminServlet"})
-public class AdminServlet extends HttpServlet 
+@WebServlet(name = "MensajesServlet", urlPatterns = {"/MensajesServlet"})
+public class MensajesServlet extends HttpServlet 
 {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -30,42 +26,44 @@ public class AdminServlet extends HttpServlet
         //aca vamos a trabajar
         String strFormId = request.getParameter("formid");
         
-        // <editor-fold defaultstate="collapsed" desc="formid 1 - Log In">
+        // <editor-fold defaultstate="collapsed" desc="formid 1 - New Mensaje">
         if(strFormId.equals("1"))
         {
-            String strUsuario = request.getParameter("usuario");
-            String strPassword = request.getParameter("password");
+            
+            String strFirstName = request.getParameter("nombre");
+            String strLastName = request.getParameter("telefono");
+            String strAge = request.getParameter("mensaje");
             
             Connection con = createConnection();
-            String strSql = "SELECT * FROM tbadmin WHERE usuario='"+strUsuario+"' AND password = md5('"+strPassword+"');";
+            String strSql = "INSERT INTO tbmensajes"
+                    + "(mid,nombre,telefono,mensaje) "
+                    + "VALUES(0,'"+strFirstName+"'"
+                    + ",'"+strLastName+"','"+strAge+"');";
+            int iRows = executeNonQueryInt(strSql,con);
             
-            AdminQuery CQuery = new AdminQuery(strSql);
-            ArrayList<AdminObj> admin = executeQueryResult(CQuery, con);
-            request.getSession().setAttribute("admin", admin);
-            
-            if(admin.size() == 1){
-                request.getSession().setAttribute("nivel", "0");
-                response.sendRedirect("admin/index.jsp");
+            if (iRows == 1) {
+                request.getSession().setAttribute("mensaje", "1");
+                response.sendRedirect("contactanos.jsp");
             } else {
-                String mensaje = "0";
-                request.getSession().setAttribute("mensaje", mensaje);
-                response.sendRedirect("loginusuario.jsp");
+                request.getSession().setAttribute("mensaje", "");
+                response.sendRedirect("contactanos.jsp");
             }
+            
         }
         // </editor-fold>
         
-        // <editor-fold defaultstate="collapsed" desc="formid 2 - Log Out">
+        // <editor-fold defaultstate="collapsed" desc="formid 2 - Person Form Table">
         if(strFormId.equals("2"))
         {
-            response.setContentType("text/html;charset=UTF-8");
-            PrintWriter out = response.getWriter();
-            HttpSession sesion = request.getSession(true);
-
-            //Cerrar sesion
-            sesion.invalidate();
-
-            //Redirecciono a index.jsp
-            response.sendRedirect("loginusuario.jsp");
+            /*
+            Connection con = createConnection();
+            String strSql = "SELECT * FROM crsglassdb.person;";
+            PersonQuery CQuery = new PersonQuery(strSql);
+            ArrayList<PersonObj> arreglo = executeQueryResult(CQuery, con);
+            
+            request.getSession().setAttribute("arreglo", arreglo);
+            response.sendRedirect("personForm.jsp");
+            */
         }
         // </editor-fold>
         
@@ -191,7 +189,7 @@ public class AdminServlet extends HttpServlet
         } 
         catch (ClassNotFoundException | SQLException ex) 
         {
-            Logger.getLogger(BaseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MensajesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         return con;
@@ -213,7 +211,7 @@ public class AdminServlet extends HttpServlet
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(BaseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MensajesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return iRows;
     }
@@ -233,7 +231,7 @@ public class AdminServlet extends HttpServlet
         } 
         catch (SQLException ex) 
         {
-            Logger.getLogger(BaseServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MensajesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
         return arreglo;
     }
