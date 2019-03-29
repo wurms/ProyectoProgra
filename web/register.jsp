@@ -198,31 +198,26 @@ if(isset($_POST['nombre'])){
                   <input type="text" name="direccion" maxlength="100" class="validate-required" placeholder="Dirección" required/>
                 </div>
                 <div class="col-sm-4 col-md-4 col-md-offset-0.5 input-with-label text-left">
+                  <span>Ocupación:</span>
+                  <input type="text" name="ocupacion" maxlength="100" class="validate-required" placeholder="Ocupación" required/>
                   <span>Teléfono:</span>
                   <input type="text" name="telefono" minlength="9" maxlength="9" class="validate-required validate-cellphone" onpaste="return false" onkeypress="return solonumeros(this, '####-####',event)" placeholder="Teléfono" required/>
+                  <span>Celular:</span>
+                  <input type="text" name="celular" minlength="9" maxlength="9" class="validate-required validate-cellphone" onpaste="return false" onkeypress="return solonumeros(this, '####-####',event)" placeholder="Celular" required/>
                   <span>NIT:</span>
                   <input type="text" name="nit" minlength="17" maxlength="17" class="validate-required validate-nit" onpaste="return false" onkeypress="return solonumeros(this, '####-######-###-#',event)" placeholder="NIT" required/>
+                </div>
+                <div class="col-sm-4 col-md-4 col-md-offset-0.5 input-with-label text-left">
                   <span>Fecha de Nacimiento (Mes-Día-Año)</span>
                   <input type="text" name="fechanac" maxlength="10" class="validate-required validate-fecha" onpaste="return false" onkeypress="return solonumeros(this, '##-##-####',event)" placeholder="Fecha de nacimiento (Mes-Día-Año)" required/>
                   <span>Correo:</span>
                   <input type="email" name="email" class="validate-required validate-email" placeholder="Correo" required/>
-                </div>
-                <div class="col-sm-4 col-md-4 col-md-offset-0.5 input-with-label text-left">
-                  <span>Sucursal</span>
-                  <select name="sucursal">
-                    <?php
-                      $consulta = "SELECT * FROM tbsucursal WHERE sid!='1'";
-                      foreach ($con->query($consulta) as $key) {
-                        ?>
-                        <option value="<?=$key['sid']?>"><?=$key['nombre']?></option>
-                        <?php
-                      }
-                    ?>
-                  </select>
-                  <span>Foto DUI:</span>
-                  <input type="file" name="foto_dui" class="validate-required" />
-                  <span>Foto de Perfil:</span>
-                  <input type="file" name="foto_perfil" class="validate-required" />
+                  <span>Contraseña:</span>
+                  <input type="password" name="password1" class="validate-required validate-igual1" maxlength="32" onkeyup="muestra_seguridad_clave(this.value, this.form)" placeholder="Contraseña" required/>
+                  <span>Confirmar Contraseña:</span>
+                  <input type="password" name="password2" class="validate-required validate-igual2" maxlength="32" placeholder="Confirmar Contraseña" required/>
+                  <span>Seguridad de la Contraseña:</span>
+                  <input type="text" name="seguridad" class="validate-required validate-seguridad" onfocus="blur()" placeholder="Seguridad de la Contraseña" />
                   <button type="submit">Listo</button>
                 </div>
               </div>
