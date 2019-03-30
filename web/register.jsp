@@ -184,38 +184,38 @@ if(isset($_POST['nombre'])){
         <div class="row">
           <div class="col-md-12 col-md-offset-0 col-sm-1 col-sm-offset-1">
             <div class="feature boxed bg-secondary">
-              <form method="post" class="text-center form-envio" data-error="Completa todos los campos correctamente" data-success="¡Nuevo miembro ingresado!" enctype="multipart/form-data">
+              <form method="post" class="text-center form-envio" data-success="¡Nuevo miembro ingresado!" enctype="multipart/form-data">
                <center><h4 class="uppercase">Registrarse</h4></center>
                <div class="overflow-hidden">
                 <div class="col-sm-4 col-md-4 col-md-offset-0.5 input-with-label text-left">
                   <span>DUI:</span>
-                  <input type="text" name="dui" minlength="10" maxlength="10" class="validate-required validate-dui" onpaste="return false" onkeypress="return solonumeros(this, '########-#',event)" placeholder="DUI" required/>
+                  <input type="text" name="dui" maxlength="10" class="validate-required validate-dui" onpaste="return false" onkeypress="return solonumeros(this, '########-#',event)" placeholder="DUI" />
                   <span>Nombre:</span>
-                  <input type="text" name="nombre" class="validate-required" onpaste="return false" maxlength="30" onkeypress="return sololetras(event)" placeholder="Nombre" required/>
+                  <input type="text" name="nombre" class="validate-required" onpaste="return false" maxlength="30" onkeypress="return sololetras(event)" placeholder="Nombre" />
                   <span>Apellido:</span>
-                  <input type="text" name="apellido" class="validate-required" onpaste="return false" maxlength="30" onkeypress="return sololetras(event)" placeholder="Apellido" required/>
+                  <input type="text" name="apellido" class="validate-required" onpaste="return false" maxlength="30" onkeypress="return sololetras(event)" placeholder="Apellido" />
                   <span>Dirección:</span>
-                  <input type="text" name="direccion" maxlength="100" class="validate-required" placeholder="Dirección" required/>
+                  <input type="text" name="direccion" maxlength="100" class="validate-required" placeholder="Dirección" />
                 </div>
                 <div class="col-sm-4 col-md-4 col-md-offset-0.5 input-with-label text-left">
                   <span>Ocupación:</span>
-                  <input type="text" name="ocupacion" maxlength="100" class="validate-required" placeholder="Ocupación" required/>
+                  <input type="text" name="ocupacion" maxlength="100" class="validate-required" placeholder="Ocupación" />
                   <span>Teléfono:</span>
-                  <input type="text" name="telefono" minlength="9" maxlength="9" class="validate-required validate-cellphone" onpaste="return false" onkeypress="return solonumeros(this, '####-####',event)" placeholder="Teléfono" required/>
+                  <input type="text" name="telefono" maxlength="9" class="validate-required validate-cellphone" onpaste="return false" onkeypress="return solonumeros(this, '####-####',event)" placeholder="Teléfono" />
                   <span>Celular:</span>
-                  <input type="text" name="celular" minlength="9" maxlength="9" class="validate-required validate-cellphone" onpaste="return false" onkeypress="return solonumeros(this, '####-####',event)" placeholder="Celular" required/>
+                  <input type="text" name="celular" maxlength="9" class="validate-required validate-cellphone" onpaste="return false" onkeypress="return solonumeros(this, '####-####',event)" placeholder="Celular" />
                   <span>NIT:</span>
-                  <input type="text" name="nit" minlength="17" maxlength="17" class="validate-required validate-nit" onpaste="return false" onkeypress="return solonumeros(this, '####-######-###-#',event)" placeholder="NIT" required/>
+                  <input type="text" name="nit" maxlength="17" class="validate-required validate-nit" onpaste="return false" onkeypress="return solonumeros(this, '####-######-###-#',event)" placeholder="NIT" />
                 </div>
                 <div class="col-sm-4 col-md-4 col-md-offset-0.5 input-with-label text-left">
                   <span>Fecha de Nacimiento (Mes-Día-Año)</span>
-                  <input type="text" name="fechanac" maxlength="10" class="validate-required validate-fecha" onpaste="return false" onkeypress="return solonumeros(this, '##-##-####',event)" placeholder="Fecha de nacimiento (Mes-Día-Año)" required/>
+                  <input type="text" name="fechanac" maxlength="10" class="validate-required validate-fecha" onpaste="return false" onkeypress="return solonumeros(this, '##-##-####',event)" placeholder="Fecha de nacimiento (Mes-Día-Año)" />
                   <span>Correo:</span>
-                  <input type="email" name="email" class="validate-required validate-email" placeholder="Correo" required/>
+                  <input type="email" name="email" class="validate-required validate-email" placeholder="Correo" />
                   <span>Contraseña:</span>
-                  <input type="password" name="password1" class="validate-required validate-igual1" maxlength="32" onkeyup="muestra_seguridad_clave(this.value, this.form)" placeholder="Contraseña" required/>
+                  <input type="password" name="password1" class="validate-required validate-igual1" maxlength="32" onkeyup="muestra_seguridad_clave(this.value, this.form)" placeholder="Contraseña" />
                   <span>Confirmar Contraseña:</span>
-                  <input type="password" name="password2" class="validate-required validate-igual2" maxlength="32" placeholder="Confirmar Contraseña" required/>
+                  <input type="password" name="password2" class="validate-required validate-igual2" maxlength="32" placeholder="Confirmar Contraseña" />
                   <span>Seguridad de la Contraseña:</span>
                   <input type="text" name="seguridad" class="validate-required validate-seguridad" onfocus="blur()" placeholder="Seguridad de la Contraseña" />
                   <button type="submit">Listo</button>
