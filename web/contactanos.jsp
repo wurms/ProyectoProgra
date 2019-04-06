@@ -21,8 +21,8 @@
     <nav class="bg-dark">
       <div class="nav-bar">
         <div class="module left">
-          <a href="index.html">
-            <h5>Pawnshop System</h5>
+          <a href="index.jsp">
+            <h5>Seguros El Salvador</h5>
           </a>
         </div>
         <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
@@ -32,7 +32,7 @@
           <div class="module left">
             <ul class="menu">
               <li>
-                <a href="index.html">
+                <a href="index.jsp">
                   Inicio
                 </a>
               </li>
