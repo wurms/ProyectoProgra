@@ -1,4 +1,4 @@
-<%@page import="programmer.pojo.AdminObj"%>
+<%@page import="wurms.programmer.pojo.AdminObj"%>
 <%@page import="java.util.ArrayList"%>
 <%
     String nivel = (String) request.getSession().getAttribute("nivel");

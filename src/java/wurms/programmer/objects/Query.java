@@ -1,4 +1,4 @@
-package programmer.objects;
+package wurms.programmer.objects;
 
 import java.sql.ResultSet;
 import java.util.ArrayList;
