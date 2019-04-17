@@ -1,90 +1,3 @@
-<%--
-<?php
-include("conexion.php");
-
-function generarCodigo($longitud) {
- $key = '';
- $pattern = '1234567890abcdefghijklmnopqrstuvwxyz';
- $max = strlen($pattern)-1;
- for($i=0;$i < $longitud;$i++) $key .= $pattern{mt_rand(0,$max)};
-   return $key;
-}
-
-if(isset($_POST['nombre'])){
-  if ($_FILES["foto_dui"]["error"] > 0 || $_FILES["foto_perfil"]["error"] > 0){
-    echo "Problemas al subir las fotografías";
-  } else {
-    $jpg = array("image/jpg", "jpg");
-    $jpeg = array("image/jpeg", "jpeg");
-    $png = array("image/png", "png");
-    $limite_kb = 600;
-    $dui = $_POST['dui'];
-    $nombre = $_POST['nombre'];
-    $apellido = $_POST['apellido'];
-    $direccion = $_POST['direccion'];
-    $telefono = $_POST['telefono'];
-    $nit = $_POST['nit'];
-    $fechanac = $_POST['fechanac'];
-    $correo = $_POST['email'];
-    $password1 = generarCodigo(6);
-    $sucursal = $_POST['sucursal'];
-    $habilitado = 1;
-
-    if (in_array($_FILES['foto_dui']['type'], $jpg)) {
-      $nombred = $dui."d.jpg";
-    }elseif (in_array($_FILES['foto_dui']['type'], $jpeg)) {
-      $nombred = $dui."d.jpeg";
-    }elseif (in_array($_FILES['foto_dui']['type'], $png)) {
-      $nombred = $dui."d.png";
-    }
-
-    if (in_array($_FILES['foto_perfil']['type'], $jpg)) {
-      $nombrep = $dui."p.jpg";
-    }elseif (in_array($_FILES['foto_perfil']['type'], $jpeg)) {
-      $nombrep = $dui."p.jpeg";
-    }elseif (in_array($_FILES['foto_perfil']['type'], $png)) {
-      $nombrep = $dui."p.png";
-    }
-
-    $show = "SELECT * FROM tbcliente";
-    $vars = $con->query($show)->fetch_all();
-
-    if ($_FILES['foto_dui']['size'] <= $limite_kb * 1024 || $_FILES['foto_perfil']['size'] <= $limite_kb * 1024){
-      $rutad = "fotos/" . $nombred;
-      $rutap = "fotos/" . $nombrep;
-      if ($vars[0][1] != $dui){
-        $resultadod = @move_uploaded_file($_FILES["foto_dui"]["tmp_name"], $rutad);
-        $resultadop = @move_uploaded_file($_FILES["foto_perfil"]["tmp_name"], $rutap);
-        if ($resultadod && $resultadop){
-
-          $insertar = "INSERT INTO tbcliente VALUES('','$dui','$nombre','$apellido','$direccion','$telefono','$nit','$nombred','$nombrep','$fechanac','$correo','$password1','$sucursal','$habilitado')";
-          $var = $con->query($insertar);
-
-          $subject = "Inicio de Sesión";
-          $txt = "¡Bienvenid@ a nuestra comunidad!\r\nPara veríficar este correo y que puedas entrar a nuestra plataforma dirigete a iniciar sesión. \r\nTu contraseña: ".$password1."\r\nInicia sesión en: http://www.learntodrivecssc.com/loginusuario.php";
-
-          $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
-          $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-          $cabeceras .= 'To: Mary <mary@example.com>, Kelly <kelly@example.com>' . "\r\n";
-          $cabeceras .= 'From: PawnshopSystem <pawnshop@example.com>' . "\r\n";
-          $cabeceras .= 'Cc: pawnshop@example.com' . "\r\n";
-          $cabeceras .= 'Bcc: birthdaycheck@example.com' . "\r\n";
-
-          mail($correo,$subject,$txt,$cabeceras);
-        }
-      }else {
-        header("location: ncliente.php?msg=2");
-        exit();
-      }
-    }else {
-      header("location: ncliente.php?msg=1");
-      exit();
-    }
-  }
-}
-?>
---%>
 <!doctype html>
 <html lang="en">
 <head>
@@ -108,7 +21,7 @@ if(isset($_POST['nombre'])){
     <nav class="bg-dark">
       <div class="nav-bar">
         <div class="module left">
-          <a href="index.html">
+          <a href="index.jsp">
             <h5>Seguros El Salvador</h5>
           </a>
         </div>
@@ -119,7 +32,7 @@ if(isset($_POST['nombre'])){
           <div class="module left">
             <ul class="menu">
               <li>
-                <a href="index.html">
+                <a href="index.jsp">
                   Inicio
                 </a>
               </li>
@@ -141,40 +54,27 @@ if(isset($_POST['nombre'])){
       </div>
     </nav>
   </div>
-  <%--
-  <?php
-  if(isset($_POST['nombre'])){
-    if($var){
-      ?>
-      <script type="text/javascript">
-        swal("¡BUEN TRABAJO!", "¡Cliente ingresado!", "success")
-      </script>
-      <?php
-    }else{
-      ?>
-      <script type="text/javascript">
-        sweetAlert("¡ERROR!", "¡Intente nuevamente!", "error");
-      </script>
-      <?php
-    }
-  }
-  if (isset($_GET['msg'])) {
-    if ($_GET['msg'] == 1 ) {
-      ?>
-      <script type="text/javascript">
-        sweetAlert("¡ERROR!", "¡Archivo no permitido!", "error");
-      </script>
-      <?php
-    }elseif ($_GET['msg'] == 2) {
-      ?>
-      <script type="text/javascript">
-        sweetAlert("¡ERROR!", "¡DUI actualmente existente!", "error");
-      </script>
-      <?php
-    }
-  }
-  ?>
-  --%>
+    <%
+                  String mensaje = (String) request.getSession().getAttribute("mensaje");
+                  
+                  if (mensaje != null) {
+                          
+                      
+                  if(mensaje.equals("0")){
+                    %>
+                    <script type="text/javascript">
+                    sweetAlert("¡BIENVENIDO!", "¡Sus datos han sido ingresados!", "success");
+                    </script>
+                    <%
+                  } else if (mensaje.equals("2")){
+                    %>
+                    <script type="text/javascript">
+                    sweetAlert("¡ERROR!", "¡Compruebe que no tengo una cuenta existente!", "error");
+                    </script>
+                    <%
+                  }
+}
+              %>
   <div class="main-container">
     <section class="cover fullscreen image-bg overlay">
       <div class="background-image-holder">
@@ -184,7 +84,7 @@ if(isset($_POST['nombre'])){
         <div class="row">
           <div class="col-md-12 col-md-offset-0 col-sm-1 col-sm-offset-1">
             <div class="feature boxed bg-secondary">
-              <form method="post" class="text-center form-envio" data-success="¡Nuevo miembro ingresado!" enctype="multipart/form-data">
+              <form method="post" action="ClienteServlet" class="text-center form-envio" data-success="¡Nuevo miembro ingresado!" enctype="multipart/form-data">
                <center><h4 class="uppercase">Registrarse</h4></center>
                <div class="overflow-hidden">
                 <div class="col-sm-4 col-md-4 col-md-offset-0.5 input-with-label text-left">
@@ -218,6 +118,7 @@ if(isset($_POST['nombre'])){
                   <input type="password" name="password2" class="validate-required validate-igual2" maxlength="32" placeholder="Confirmar Contraseña" />
                   <span>Seguridad de la Contraseña:</span>
                   <input type="text" name="seguridad" class="validate-required validate-seguridad" onfocus="blur()" placeholder="Seguridad de la Contraseña" />
+                  <input type="hidden" name="formid" value="1"/>
                   <button type="submit">Listo</button>
                 </div>
               </div>
