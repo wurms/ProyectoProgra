@@ -10,6 +10,7 @@ package wurms.programmer.pojo;
  * @author Rodrigo Ortiz
  */
 public class ClienteObj {
+    private int m_iId;
     private String m_strDui;
     private String m_strNombre;
     private String m_strApellido;
@@ -22,7 +23,8 @@ public class ClienteObj {
     private String m_strCorreo;
     private String m_strPassword;
 
-    public ClienteObj(String m_strDui, String m_strNombre, String m_strApellido, String m_strDireccion, String m_strOcupacion, String m_strTelefono, String m_strCelular, String m_strNit, String m_strFechanac, String m_strCorreo, String m_strPassword) {
+    public ClienteObj(int m_strId, String m_strDui, String m_strNombre, String m_strApellido, String m_strDireccion, String m_strOcupacion, String m_strTelefono, String m_strCelular, String m_strNit, String m_strFechanac, String m_strCorreo, String m_strPassword) {
+        setId(m_strId);
         setDui(m_strDui);
         setNombre(m_strNombre);
         setApellido(m_strApellido);
@@ -36,7 +38,13 @@ public class ClienteObj {
         setPassword(m_strPassword);
     }
 
-    
+    public int getId() {
+        return m_iId;
+    }
+
+    private void setId(int m_iId) {
+        this.m_iId = m_iId;
+    }    
     
     public String getDui() {
         return m_strDui;

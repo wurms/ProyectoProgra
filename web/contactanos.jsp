@@ -78,7 +78,7 @@
             </p>
           </div>
           <div class="col-sm-6 col-md-5 col-md-offset-1 input-with-label text-left">
-              <form method="post" action="MensajesServlet" class="form-envio" data-success="¡Gracias por su comentario!" data-error="Complete todos los campos correctamente.">
+              <form method="post" action="MensajeServlet" class="form-envio" data-success="¡Espere un momento!" data-error="Complete todos los campos correctamente.">
               <span>Nombre:</span>
               <input type="text" style="background: whitesmoke;" onpaste="return false" maxlength="30" onkeypress="return sololetras(event)" class="validate-required" name="nombre" placeholder="Nombre" required/>
               <span>Número:</span>
@@ -90,7 +90,7 @@
             </form>
             <%
             String mensaje = (String) request.getSession().getAttribute("mensaje");
-                  
+                  HttpSession sesion = request.getSession(true);
             if (mensaje != null) {
               if(mensaje.equals("1")){
                 %>
@@ -105,6 +105,7 @@
                 </script>
                 <%
               }
+sesion.invalidate();
             }
             %>
           </div>

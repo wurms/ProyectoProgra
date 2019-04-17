@@ -91,7 +91,7 @@
               </div>
               <%
                   String mensaje = (String) request.getSession().getAttribute("mensaje");
-                  
+                  HttpSession sesion = request.getSession(true);
                   if (mensaje != null) {
                           
                       
@@ -126,6 +126,7 @@
                     </script>
                     <%
                   }
+sesion.invalidate();
 }
               %>
             </div>

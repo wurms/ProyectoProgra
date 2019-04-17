@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "MensajeServlet", urlPatterns = {"/MensajeServlet"})
 public class MensajeServlet extends HttpServlet 
@@ -25,13 +26,13 @@ public class MensajeServlet extends HttpServlet
             
             if(strFormId.equals("1"))
             {
-                String strFirstName = request.getParameter("nombre");
-                String strLastName = request.getParameter("telefono");
-                String strAge = request.getParameter("mensaje");
+                String nombre = request.getParameter("nombre");
+                String telefono = request.getParameter("telefono");
+                String mensaje = request.getParameter("mensaje");
                 
                 //access logic
                 MensajeLogic CLogic = new MensajeLogic();
-                int iRows = CLogic.insertMensajeRows(strFirstName, strLastName, strAge);
+                int iRows = CLogic.insertMensajeRows(nombre, telefono, mensaje);
                 System.out.println("inser client rows: " + iRows);
 
                 if (iRows == 1) {

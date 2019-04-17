@@ -11,12 +11,12 @@ import java.util.logging.Logger;
 
 public class MensajeLogic extends Logic
 {
-    public int insertMensajeRows(String p_strName, String p_strLastName, String p_iAge)
+    public int insertMensajeRows(String nombre, String telefono, String mensaje)
     {
         //INSERT INTO travelsys.client(id,name,age) VALUES(0,'pepito',24);
         DatabaseX database = getDatabase();
-        String strSql = "INSERT INTO tbmensajes(id,name,age) "
-                + "VALUES(0,'"+p_strName+"',"+p_iAge+")";
+        String strSql = "INSERT INTO tbmensajes "
+                + "VALUES(0,'"+nombre+"','"+telefono+"','"+mensaje+"')";
         System.out.println(strSql);
         int iRows = database.executeNonQueryRows(strSql);
         return iRows;

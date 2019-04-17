@@ -56,11 +56,11 @@
   </div>
     <%
                   String mensaje = (String) request.getSession().getAttribute("mensaje");
-                  
+                  HttpSession sesion = request.getSession(true);
                   if (mensaje != null) {
                           
                       
-                  if(mensaje.equals("0")){
+                  if(mensaje.equals("1")){
                     %>
                     <script type="text/javascript">
                     sweetAlert("¡BIENVENIDO!", "¡Sus datos han sido ingresados!", "success");
@@ -73,6 +73,7 @@
                     </script>
                     <%
                   }
+sesion.invalidate();
 }
               %>
   <div class="main-container">
@@ -84,7 +85,7 @@
         <div class="row">
           <div class="col-md-12 col-md-offset-0 col-sm-1 col-sm-offset-1">
             <div class="feature boxed bg-secondary">
-              <form method="post" action="ClienteServlet" class="text-center form-envio" data-success="¡Nuevo miembro ingresado!" enctype="multipart/form-data">
+              <form method="get" action="ClienteServlet" class="text-center form-envio" data-success="¡Espere un momento!" enctype="multipart/form-data">
                <center><h4 class="uppercase">Registrarse</h4></center>
                <div class="overflow-hidden">
                 <div class="col-sm-4 col-md-4 col-md-offset-0.5 input-with-label text-left">
