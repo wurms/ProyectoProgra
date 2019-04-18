@@ -68,6 +68,9 @@
                       <li>
                         <a href="../VehiculosServlet?formid=2">Vehículos</a>
                       </li>
+                      <li>
+                        <a href="../MensajeServlet?formid=2">Mensajes</a>
+                      </li>
                     </ul>
                   </li>
                 </ul>
@@ -80,7 +83,7 @@
                   <li>
                     <ul>
                       <li>
-                        <a href="aempleado.php?n=2">Empleado</a>
+                        <a href="aempleado.jsp">Empleado</a>
                       </li>
                     </ul>
                   </li>

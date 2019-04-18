@@ -1,5 +1,3 @@
-<%@page import="java.util.Iterator"%>
-<%@page import="wurms.programmer.pojo.ClienteObj"%>
 <%@page import="wurms.programmer.pojo.AdminObj"%>
 <%@page import="java.util.ArrayList"%>
 <%
@@ -8,16 +6,12 @@
         request.getSession().setAttribute("mensaje", "3");
             response.sendRedirect("../loginusuario.jsp");
     } else {
-        if (!nivel.equals("0")) {
+        if (!nivel.equals("1")) {
             request.getSession().setAttribute("mensaje", "3");
             response.sendRedirect("../loginusuario.jsp");    
         }
     }
     ArrayList<AdminObj> admin = (ArrayList<AdminObj>) request.getSession().getAttribute("admin");
-    
-ArrayList<ClienteObj> CArray = 
-                (ArrayList<ClienteObj>)request.getSession().getAttribute("clientes");
-        Iterator<ClienteObj> iteArray = CArray.iterator();
 %>
 <!doctype html>
 <html lang="es">
@@ -46,18 +40,6 @@ ArrayList<ClienteObj> CArray =
         </div>
         <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
           <i class="ti-menu"></i>
-        </div>
-          <div class="module widget-handle search-widget-handle left">
-          <div class="search">
-            <i class="ti-search"></i>
-            <span class="title">Buscador</span>
-          </div>
-          <div class="function">
-            <form class="search-form" action="../ClienteServlet" method="post">
-              <input type="text" name="busqueda" maxlength="30" placeholder="Buscar" />
-              <input type="hidden" name="formid" value="3" />
-            </form>
-          </div>
         </div>
         <div class="module-group right">
           <div class="module left">
@@ -122,77 +104,46 @@ ArrayList<ClienteObj> CArray =
   </div>
   <!--Final barra-->
   <div class="main-container">
-    <section class="fullscreen">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-12 text-center">
-            <h4 class="uppercase mb16">Listado de clientes</h4>
-            <p class="lead mb64">
-              Esto son todos los empleados de la plataforma.
-            </p>
+    <section class="cover fullscreen image-slider slider-all-controls controls-inside parallax">
+      <ul class="slides">
+        <li class="overlay image-bg bg-light">
+          <div class="background-image-holder">
+            <img alt="image" class="background-image" src="../img/download.jpg" />
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md-100 col-md-offset-0 col-sm-100 col-sm-offset-0">
-            <table class="table cart mb48">
-              <thead>
-                <tr>
-                  <th>Id</th>
-                  <th>DUI</th>
-                  <th>Nombre</th>
-                  <th>Teléfono</th>
-                  <th>Celular</th>
-                  <th>Correo</th>
-                </tr>
-              </thead>
-              <tbody>
-                          <%
-            if(iteArray!=null)
-            {
-                ClienteObj CTemp;
-                while(iteArray.hasNext())
-                {
-                    CTemp = iteArray.next();
-        %>
-                  <tr>
-                    <td>
-                      <span><%= CTemp.getId() %></span>
-                    </td>
-                    <td>
-                      <span><%= CTemp.getDui() %></span>
-                    </td>
-                    <td>
-                      <span><%= CTemp.getNombre() %> <%= CTemp.getApellido() %></span>
-                    </td>
-                    <td>
-                      <span><%= CTemp.getTelefono() %></span>
-                    </td>
-                    <td>
-                      <span><%= CTemp.getCelular() %></span>
-                    </td>
-                    <td>
-                      <span><%= CTemp.getCorreo() %></span>
-                    </td>
-                    <td>
-                      <a href="mempleado.php?eid=<?=$key['eid']?>" class="remove-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Modificar Empleado">
-                        <i class="ti-pencil-alt"></i>
-                      </a>
-                    </td>
-                  </tr>
-                          <%
-                }
-            }
-        %>
-        
-                </tbody>
-              </table>
+          <div class="container v-align-transform">
+            <div class="row">
+              <div class="col-sm-10 col-sm-offset-1 text-center">
+                <h1 class="mb40 mb-xs-16 large">¡Bienvenido!</h1>
+                <h6 class="uppercase mb16">Cliente.</h6>
+                <p class="lead mb40">
+                  ${admin[0].getNombre()} ${admin[0].getApellido()}
+                </p>
+              </div>
             </div>
-            <!--end of items-->
+            <!--columna-->
           </div>
-          <!--end of row-->
-        </div>
-        <!--end of container-->
-      </section>
+          <!--Contenedor 1-->
+        </li>
+        <li class="overlay image-bg">
+          <div class="background-image-holder">
+            <img alt="image" class="background-image" src="../img/download.jpg" />
+          </div>
+          <div class="container v-align-transform">
+            <div class="row">
+              <div class="col-sm-offset-1 text-center col-sm-10">
+                <h1 class="mb40 mb-xs-16 large">¡Bienvenido!</h1>
+                <h6 class="uppercase mb16">Administrador</h6>
+                <p class="lead mb40">
+                  ${admin[0].getNombre()} ${admin[0].getApellido()}
+                </p>
+              </div>
+            </div>
+            <!--columna-->
+          </div>
+          <!--Contenedor 1-->
+        </li>
+      </ul>
+    </section>
 
     <footer class="footer-1 bg-dark">
       <div class="container">

@@ -1,7 +1,7 @@
 package wurms.programmer.logic;
 
 import wurms.programmer.database.DatabaseX;
-import wurms.programmer.pojo.ClienteObj;
+import wurms.programmer.pojo.EmpleadoObj;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,72 +9,64 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class ClienteLogic extends Logic
+public class EmpleadoLogic extends Logic
 {
-    public int insertClienteRows(String dui, String nombre, String apellido, String direccion, String ocupacion, String telefono, String celular, String nit, String fechanac, String correo, String password)
+    public int insertEmpleadoRows(String nombre, String apellido, String dui, String telefono, String correo, String usuario, String password)
     {
         //INSERT INTO travelsys.client(id,name,age) VALUES(0,'pepito',24);
         DatabaseX database = getDatabase();
-        String strSql = "INSERT INTO tbcliente "
-                + "VALUES(0,'"+dui+"','"+nombre+"','"+apellido+"','"+direccion+"','"+ocupacion+"','"+telefono+"','"+celular+"','"+nit+"','"+fechanac+"','"+correo+"',md5('"+password+"'),0)";
+        String strSql = "INSERT INTO tbempleado "
+                + "VALUES(0,'"+nombre+"','"+apellido+"','"+dui+"','"+telefono+"','"+correo+"',1,'"+usuario+"',md5('"+password+"'))";
         System.out.println(strSql);
         int iRows = database.executeNonQueryRows(strSql);
         return iRows;
     }
     
-    public ArrayList<ClienteObj> getAllClientes() 
+    public ArrayList<EmpleadoObj> getAllEmpleados() 
     {
         //select * from travelsys.client;
         DatabaseX database = getDatabase();
-        String strSql = "select * from tbcliente ";
+        String strSql = "select * from tbempleado ";
         System.out.println(strSql);
         ResultSet CResult = database.executeQuery(strSql);
-        ArrayList<ClienteObj> CArray = null;
+        ArrayList<EmpleadoObj> CArray = null;
         
         if(CResult!=null)
         {
             int id;
-            String dui;
             String nombre;
             String apellido;
-            String direccion;
-            String ocupacion;
+            String dui;
             String telefono;
-            String celular;
-            String nit;
-            String fechanac;
             String correo;
-            String password;
             int habilitado;
+            String usuario;
+            String password;
             
-            ClienteObj CTemp;
+            EmpleadoObj CTemp;
             CArray = new ArrayList<>();
             
             try 
             {
                 while(CResult.next())
                 {
-                    id = CResult.getInt("cid");
+                    id = CResult.getInt("eid");
                     dui = CResult.getString("dui");
                     nombre = CResult.getString("nombre");
                     apellido = CResult.getString("apellido");
-                    direccion = CResult.getString("direccion");
-                    ocupacion = CResult.getString("ocupacion");
                     telefono = CResult.getString("telefono");
-                    celular = CResult.getString("celular");
-                    nit = CResult.getString("nit");
-                    fechanac = CResult.getString("fechanac");
                     correo = CResult.getString("correo");
                     password = CResult.getString("password");
                     habilitado = CResult.getInt("habilitado");
+                    usuario = CResult.getString("usuario");
                     
-                    CTemp = new ClienteObj(id, dui, nombre, apellido, direccion, ocupacion, telefono, celular, nit, fechanac, correo, password, habilitado);
+                    CTemp = new EmpleadoObj(id, nombre, apellido, dui, telefono, correo, habilitado, usuario, password);
                     CArray.add(CTemp);
                 }
             } 
             catch (SQLException ex) 
             {
-                Logger.getLogger(ClienteLogic.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EmpleadoLogic.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -82,109 +74,94 @@ public class ClienteLogic extends Logic
         
     }
     
-     public ArrayList<ClienteObj> getTheseClientes(String busqueda) 
+     public ArrayList<EmpleadoObj> getTheseEmpleados(String busqueda) 
     {
         //select * from travelsys.client;
         DatabaseX database = getDatabase();
-        String strSql = "select * from tbcliente where nombre like '"+ busqueda +"%' or apellido like '"+ busqueda +"%' or dui like '"+ busqueda +"%' ";
+        String strSql = "select * from tbempleado where nombre like '"+ busqueda +"%' or apellido like '"+ busqueda +"%' or dui like '"+ busqueda +"%' ";
         System.out.println(strSql);
         ResultSet CResult = database.executeQuery(strSql);
-        ArrayList<ClienteObj> CArray = null;
+        ArrayList<EmpleadoObj> CArray = null;
         
         if(CResult!=null)
         {
             int id;
-            String dui;
             String nombre;
             String apellido;
-            String direccion;
-            String ocupacion;
+            String dui;
             String telefono;
-            String celular;
-            String nit;
-            String fechanac;
             String correo;
-            String password;
             int habilitado;
+            String usuario;
+            String password;
             
-            ClienteObj CTemp;
+            EmpleadoObj CTemp;
             CArray = new ArrayList<>();
             
             try 
             {
                 while(CResult.next())
                 {
-                    id = CResult.getInt("cid");
+                    id = CResult.getInt("eid");
                     dui = CResult.getString("dui");
                     nombre = CResult.getString("nombre");
                     apellido = CResult.getString("apellido");
-                    direccion = CResult.getString("direccion");
-                    ocupacion = CResult.getString("ocupacion");
                     telefono = CResult.getString("telefono");
-                    celular = CResult.getString("celular");
-                    nit = CResult.getString("nit");
-                    fechanac = CResult.getString("fechanac");
                     correo = CResult.getString("correo");
                     password = CResult.getString("password");
                     habilitado = CResult.getInt("habilitado");
+                    usuario = CResult.getString("usuario");
                     
-                    CTemp = new ClienteObj(id, dui, nombre, apellido, direccion, ocupacion, telefono, celular, nit, fechanac, correo, password, habilitado);
+                    CTemp = new EmpleadoObj(id, nombre, apellido, dui, telefono, correo, habilitado, usuario, password);
                     CArray.add(CTemp);
                 }
             } 
             catch (SQLException ex) 
             {
-                Logger.getLogger(ClienteLogic.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(EmpleadoLogic.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
         return CArray;
         
     }
-     public ArrayList<ClienteObj> login(String strUsername, String strContra) 
+     
+    public ArrayList<EmpleadoObj> login(String strUsername, String strContra) 
     {
         //select * from travelsys.client;
         DatabaseX database = getDatabase();
-        String strSql = "SELECT * FROM tbcliente WHERE dui='"+strUsername+"' AND password = md5('"+strContra+"');";
+        String strSql = "SELECT * FROM tbempleado WHERE usuario='"+strUsername+"' AND password = md5('"+strContra+"');";
         System.out.println(strSql);
         ResultSet p_CResult = database.executeQuery(strSql);
-        ArrayList<ClienteObj> arreglo = null;
+        ArrayList<EmpleadoObj> arreglo = null;
         
-        ClienteObj CTemp;
+        EmpleadoObj CTemp;
         
         int id;
-        String dui;
         String nombre;
         String apellido;
-        String direccion;
-        String ocupacion;
+        String dui;
         String telefono;
-        String celular;
-        String nit;
         String correo;
-        String fechanac;
-        String password;
         int habilitado;
+        String usuario;
+        String password;
         
         if (p_CResult!=null) {
             try {
                 arreglo = new ArrayList<>();
                 while(p_CResult.next()){
-                    id = p_CResult.getInt("cid");
+                    id = p_CResult.getInt("eid");
                     dui = p_CResult.getString("dui");
                     nombre = p_CResult.getString("nombre");
                     apellido = p_CResult.getString("apellido");
-                    direccion = p_CResult.getString("direccion");
-                    ocupacion = p_CResult.getString("ocupacion");
                     telefono = p_CResult.getString("telefono");
-                    celular = p_CResult.getString("celular");
-                    nit = p_CResult.getString("nit");
-                    fechanac = p_CResult.getString("fechanac");
                     correo = p_CResult.getString("correo");
                     password = p_CResult.getString("password");
                     habilitado = p_CResult.getInt("habilitado");
+                    usuario = p_CResult.getString("usuario");
                     
-                    CTemp = new ClienteObj(id, dui, nombre, apellido, direccion, ocupacion, telefono, celular, nit, fechanac, correo, password, habilitado);
+                    CTemp = new EmpleadoObj(id, nombre, apellido, dui, telefono, correo, habilitado, usuario, password);
                     arreglo.add(CTemp);
                 }
             } catch (SQLException ex) {

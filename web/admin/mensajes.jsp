@@ -1,4 +1,6 @@
-<%@page import="programmer.pojo.AdminObj"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="wurms.programmer.pojo.MensajesObj"%>
+<%@page import="wurms.programmer.pojo.AdminObj"%>
 <%@page import="java.util.ArrayList"%>
 <%
     String nivel = (String) request.getSession().getAttribute("nivel");
@@ -12,6 +14,10 @@
         }
     }
     ArrayList<AdminObj> admin = (ArrayList<AdminObj>) request.getSession().getAttribute("admin");
+    
+ArrayList<MensajesObj> CArray = 
+                (ArrayList<MensajesObj>)request.getSession().getAttribute("mensajes");
+        Iterator<MensajesObj> iteArray = CArray.iterator();
 %>
 <!doctype html>
 <html lang="es">
@@ -40,6 +46,9 @@
             <h5>Seguros El Salvador</h5>
           </a>
         </div>
+        <div class="module widget-handle mobile-toggle right visible-sm visible-xs">
+          <i class="ti-menu"></i>
+        </div>
         <div class="module-group right">
           <div class="module left">
             <ul class="menu">
@@ -59,56 +68,16 @@
                         <span class="title">Trabajadores</span>
                       </li>
                       <li>
-                        <a href="vempleado.php?n=2">Contadores</a>
+                        <a href="../EmpleadoServlet?formid=2">Empleados</a>
                       </li>
                       <li>
-                        <a href="vempleado.php?n=3">Encargados</a>
+                        <a href="../ClienteServlet?formid=2">Clientes</a>
                       </li>
                       <li>
-                        <a href="vempleado.php?n=4">Cajeros</a>
+                        <a href="../VehiculosServlet?formid=2">Vehículos</a>
                       </li>
                       <li>
-                        <a href="vempleado.php?n=0">Empleados</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <ul>
-                      <li>
-                        <span class="title">Sucursales</span>
-                      </li>
-                      <li>
-                        <a href="vsucursal.php">Sucursales</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <ul>
-                      <li>
-                        <span class="title">Clientes</span>
-                      </li>
-                      <li>
-                        <a href="vcliente.php">Clientes</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <ul>
-                      <li>
-                        <span class="title">Mensajes</span>
-                      </li>
-                      <li>
-                        <a href="mensajes.jsp">Mensajes</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <ul>
-                      <li>
-                        <span class="title">Reportes</span>
-                      </li>
-                      <li>
-                        <a href="reporte.php">Ver Reporte</a>
+                        <a href="../MensajeServlet?formid=2">Mensajes</a>
                       </li>
                     </ul>
                   </li>
@@ -122,29 +91,7 @@
                   <li>
                     <ul>
                       <li>
-                        <span class="title">Trabajador</span>
-                      </li>
-                      <li>
-                        <a href="aempleado.php?n=2">Contador</a>
-                      </li>
-                      <li>
-                        <a href="aempleado.php?n=3">Encargado</a>
-                      </li>
-                      <li>
-                        <a href="aempleado.php?n=4">Cajero</a>
-                      </li>
-                      <li>
-                        <a href="aempleado.php?n=0">Empleado</a>
-                      </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <ul>
-                      <li>
-                        <span class="title">Sucursal</span>
-                      </li>
-                      <li>
-                        <a href="asucursal.php">Sucursal</a>
+                        <a href="aempleado.jsp">Empleado</a>
                       </li>
                     </ul>
                   </li>
@@ -163,6 +110,21 @@
       </div>
     </nav>
   </div>
+    <%
+                  String mensaje = (String) request.getParameter("mensaje");
+                  HttpSession sesion = request.getSession(true);
+                  
+                  if (mensaje != null) {
+                          
+                  if (mensaje.equals("9")){
+                    %>
+                    <script type="text/javascript">
+                    sweetAlert("¡ERROR!", "¡Intente nuevamente!", "error");
+                    </script>
+                    <%
+                  }
+}
+              %>
   <!--Final barra-->
   <div class="main-container">
     <section class="fullscreen">
@@ -185,48 +147,51 @@
                   <th>Nombre</th>
                   <th>Teléfono</th>
                   <th>Mensaje</th>
-                  <th>&nbsp;</th>
                 </tr>
               </thead>
               <tbody>
-                <?php
-                $consulta = "SELECT * FROM tbmensaje LIMIT " .(($paginacion->get_page() - 1) * $resultados). "," . $resultados;
-                foreach ($con->query($consulta) as $key) {
-                  ?>
+                                            <%
+            if(iteArray!=null)
+            {
+                MensajesObj CTemp;
+                while(iteArray.hasNext())
+                {
+                    CTemp = iteArray.next();
+        %>
                   <tr>
                     <td>
-                      <span><?=$key['mid']?></span>
+                      <span><%= CTemp.getId() %></span>
                     </td>
                     <td>
-                      <span><?=$key['nombre']?></span>
+                      <span><%= CTemp.getNombre() %></span>
                     </td>
                     <td>
-                      <span><?=$key['telefono']?></span>
+                      <span><%= CTemp.getTelefono() %></span>
                     </td>
                     <td>
-                      <span><?=$key['comentario']?></span>
+                      <span><%= CTemp.getMensaje() %></span>
                     </td>
                     <td>
-                      <form method="post" class="text-center form-envio" data-error="Completa todos los campos correctamente" data-success="¡Mensaje eliminado!">
-                        <input type="hidden" name="eliminar" value="<?=$key['mid']?>">
+                      <form method="post" action="../MensajeServlet" class="text-center form-envio" data-error="Completa todos los campos correctamente" data-success="¡Mensaje eliminado!">
+                        <input type="hidden" name="formid" value="3">
+                        <input type="hidden" name="mid" value="<%= CTemp.getId() %>">
                         <div class="overflow-hidden">
-                          <button style="background: red; border-color: red;" type="submit" name="eliminar">ELIMINAR</button>
+                            <button style="background: red; border-color: red;" type="submit" name="eliminar">ELIMINAR</button>
                         </div>
                       </form>
                     </td>
                   </tr>
-                  <?php } ?>
-
-
+                           <%
+                }
+            }
+        %>
+        
                 </tbody>
               </table>
             </div>
             <!--end of items-->
           </div>
         </div>
-        <center>
-          <?php $paginacion->render(); ?>
-        </center>
         <!--final contenedor-->
       </section>
       <br><br><br><br>

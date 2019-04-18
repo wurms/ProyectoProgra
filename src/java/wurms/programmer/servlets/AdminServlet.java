@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import wurms.programmer.logic.ClienteLogic;
+import wurms.programmer.logic.EmpleadoLogic;
+import wurms.programmer.pojo.ClienteObj;
+import wurms.programmer.pojo.EmpleadoObj;
 
 @WebServlet(name = "AdminServlet", urlPatterns = {"/AdminServlet"})
 public class AdminServlet extends HttpServlet 
@@ -38,11 +42,30 @@ public class AdminServlet extends HttpServlet
                 //send to frontend
                 if(AAdmin.size() == 1){
                     request.getSession().setAttribute("nivel", "0");
+                    request.getSession().setAttribute("admin", AAdmin);
                     response.sendRedirect("admin/index.jsp");
                 } else {
-                    String mensaje = "0";
-                    request.getSession().setAttribute("mensaje", mensaje);
-                    response.sendRedirect("loginusuario.jsp");
+                    ClienteLogic CLogic = new ClienteLogic();
+                    ArrayList<ClienteObj> ACliente = CLogic.login(strUsuario, strPassword);
+                    
+                    if(ACliente.size() == 1){
+                        request.getSession().setAttribute("nivel", "1");
+                        request.getSession().setAttribute("admin", ACliente);
+                        response.sendRedirect("cliente/index.jsp");
+                    } else {
+                        EmpleadoLogic ELogic = new EmpleadoLogic();
+                        ArrayList<EmpleadoObj> AEmpleado = ELogic.login(strUsuario, strPassword);
+
+                        if(ACliente.size() == 1){
+                            request.getSession().setAttribute("nivel", "2");
+                            request.getSession().setAttribute("admin", AEmpleado);
+                            response.sendRedirect("empleado/index.jsp");
+                        } else {
+                            String mensaje = "0";
+                            request.getSession().setAttribute("mensaje", mensaje);
+                            response.sendRedirect("loginusuario.jsp");
+                        }
+                    }
                 }
             }
             

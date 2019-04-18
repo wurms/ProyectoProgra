@@ -22,8 +22,9 @@ public class ClienteObj {
     private String m_strFechanac;
     private String m_strCorreo;
     private String m_strPassword;
+    private int m_iHabilitado;
 
-    public ClienteObj(int m_strId, String m_strDui, String m_strNombre, String m_strApellido, String m_strDireccion, String m_strOcupacion, String m_strTelefono, String m_strCelular, String m_strNit, String m_strFechanac, String m_strCorreo, String m_strPassword) {
+    public ClienteObj(int m_strId, String m_strDui, String m_strNombre, String m_strApellido, String m_strDireccion, String m_strOcupacion, String m_strTelefono, String m_strCelular, String m_strNit, String m_strFechanac, String m_strCorreo, String m_strPassword, int m_iHabilitado) {
         setId(m_strId);
         setDui(m_strDui);
         setNombre(m_strNombre);
@@ -36,6 +37,7 @@ public class ClienteObj {
         setFechanac(m_strFechanac);
         setCorreo(m_strCorreo);
         setPassword(m_strPassword);
+        setHabilitado(m_iHabilitado);
     }
 
     public int getId() {
@@ -133,6 +135,16 @@ public class ClienteObj {
     private void setPassword(String m_strPassword) {
         this.m_strPassword = m_strPassword;
     }
+
+    public int getHabilitado() {
+        return m_iHabilitado;
+    }
+
+    private void setHabilitado(int m_iHabilitado) {
+        this.m_iHabilitado = m_iHabilitado;
+    }
+    
+    
     
     
 }

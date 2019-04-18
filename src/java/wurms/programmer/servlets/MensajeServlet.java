@@ -3,12 +3,14 @@ package wurms.programmer.servlets;
 import wurms.programmer.logic.MensajeLogic;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import wurms.programmer.pojo.MensajesObj;
 
 @WebServlet(name = "MensajeServlet", urlPatterns = {"/MensajeServlet"})
 public class MensajeServlet extends HttpServlet 
@@ -41,6 +43,38 @@ public class MensajeServlet extends HttpServlet
                 } else {
                     request.getSession().setAttribute("mensaje", "");
                     response.sendRedirect("contactanos.jsp");
+                }
+            }
+            if(strFormId.equals("2"))
+            {
+                //access logic
+                MensajeLogic CLogic = new MensajeLogic();
+                ArrayList<MensajesObj> CArray = CLogic.getAllMensajes();
+
+                //send to frontend
+                request.getSession().setAttribute("mensajes", CArray);
+                response.sendRedirect("admin/mensajes.jsp");
+            }
+            if(strFormId.equals("3"))
+            {
+                //get parameters
+                String strId = request.getParameter("mid");
+                int iId = Integer.parseInt(strId);
+                
+                //access logic
+                MensajeLogic CLogic = new MensajeLogic();
+                int iRows = CLogic.deleteMensajeRows(iId);
+                
+                //send to frontend
+                if (iRows == 1) {
+                    ArrayList<MensajesObj> CArray = CLogic.getAllMensajes();
+
+                    //send to frontend
+                    request.getSession().setAttribute("mensajes", CArray);
+                    response.sendRedirect("admin/mensajes.jsp");
+                } else {
+                    request.getSession().setAttribute("mensaje", "9");
+                    response.sendRedirect("admin/mensajes.jsp");
                 }
             }
            

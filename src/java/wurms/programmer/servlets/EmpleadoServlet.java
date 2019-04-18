@@ -1,7 +1,7 @@
 package wurms.programmer.servlets;
 
-import wurms.programmer.logic.ClienteLogic;
-import wurms.programmer.pojo.ClienteObj;
+import wurms.programmer.logic.EmpleadoLogic;
+import wurms.programmer.pojo.EmpleadoObj;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet(name = "ClienteServlet", urlPatterns = {"/ClienteServlet"})
-public class ClienteServlet extends HttpServlet 
+@WebServlet(name = "EmpleadoServlet", urlPatterns = {"/EmpleadoServlet"})
+public class EmpleadoServlet extends HttpServlet 
 {
 
     protected void processRequest(HttpServletRequest request, 
@@ -28,51 +28,45 @@ public class ClienteServlet extends HttpServlet
             if(strFormId.equals("1"))
             {
                 //get parameters
-                String dui = request.getParameter("dui");
                 String nombre = request.getParameter("nombre");
                 String apellido = request.getParameter("apellido");
-                String direccion = request.getParameter("direccion");
-                String ocupacion = request.getParameter("ocupacion");
+                String dui = request.getParameter("dui");
                 String telefono = request.getParameter("telefono");
-                String celular = request.getParameter("celular");
-                String nit = request.getParameter("nit");
-                String fechanac = request.getParameter("fechanac");
                 String correo = request.getParameter("email");
+                String usuario = request.getParameter("usuario");
                 String password = request.getParameter("password1");
-                    System.out.println(dui);
                     //access logic
-                    ClienteLogic CLogic = new ClienteLogic();
-                    int iRows = CLogic.insertClienteRows(dui, nombre, apellido, direccion, ocupacion, telefono, celular, nit, fechanac, correo, password);
+                    EmpleadoLogic CLogic = new EmpleadoLogic();
+                    int iRows = CLogic.insertEmpleadoRows(nombre, apellido, dui, telefono, correo, usuario, password);
                     System.out.println("inser client rows: " + iRows);
 
                     if (iRows == 1) {
-                        request.getSession().setAttribute("mensaje", "1");
-                        response.sendRedirect("register.jsp");
+                        response.sendRedirect("admin/aempleado.jsp?mensaje=1");
                     } else {
                         request.getSession().setAttribute("mensaje", "2");
-                        response.sendRedirect("register.jsp");
+                        response.sendRedirect("admin/aempleado.jsp");
                     }
             }
             if(strFormId.equals("2"))
                 {
                     //access logic
-                    ClienteLogic CLogic = new ClienteLogic();
-                    ArrayList<ClienteObj> CArray = CLogic.getAllClientes();
+                    EmpleadoLogic CLogic = new EmpleadoLogic();
+                    ArrayList<EmpleadoObj> CArray = CLogic.getAllEmpleados();
 
                     //send to frontend
-                    request.getSession().setAttribute("clientes", CArray);
-                    response.sendRedirect("admin/vclientes.jsp");
+                    request.getSession().setAttribute("empleados", CArray);
+                    response.sendRedirect("admin/vempleados.jsp");
                 }
             if(strFormId.equals("3"))
                 {
                     String busqueda = request.getParameter("busqueda");
                     //access logic
-                    ClienteLogic CLogic = new ClienteLogic();
-                    ArrayList<ClienteObj> CArray = CLogic.getTheseClientes(busqueda);
+                    EmpleadoLogic CLogic = new EmpleadoLogic();
+                    ArrayList<EmpleadoObj> CArray = CLogic.getTheseEmpleados(busqueda);
 
                     //send to frontend
-                    request.getSession().setAttribute("clientes", CArray);
-                    response.sendRedirect("admin/vclientes.jsp");
+                    request.getSession().setAttribute("empleados", CArray);
+                    response.sendRedirect("admin/vempleados.jsp");
                 }
             
         }

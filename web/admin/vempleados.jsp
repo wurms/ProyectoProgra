@@ -1,5 +1,5 @@
 <%@page import="java.util.Iterator"%>
-<%@page import="wurms.programmer.pojo.ClienteObj"%>
+<%@page import="wurms.programmer.pojo.EmpleadoObj"%>
 <%@page import="wurms.programmer.pojo.AdminObj"%>
 <%@page import="java.util.ArrayList"%>
 <%
@@ -15,9 +15,9 @@
     }
     ArrayList<AdminObj> admin = (ArrayList<AdminObj>) request.getSession().getAttribute("admin");
     
-ArrayList<ClienteObj> CArray = 
-                (ArrayList<ClienteObj>)request.getSession().getAttribute("clientes");
-        Iterator<ClienteObj> iteArray = CArray.iterator();
+ArrayList<EmpleadoObj> CArray = 
+                (ArrayList<EmpleadoObj>)request.getSession().getAttribute("empleados");
+        Iterator<EmpleadoObj> iteArray = CArray.iterator();
 %>
 <!doctype html>
 <html lang="es">
@@ -53,7 +53,7 @@ ArrayList<ClienteObj> CArray =
             <span class="title">Buscador</span>
           </div>
           <div class="function">
-            <form class="search-form" action="../ClienteServlet" method="post">
+            <form class="search-form" action="../EmpleadoServlet" method="post">
               <input type="text" name="busqueda" maxlength="30" placeholder="Buscar" />
               <input type="hidden" name="formid" value="3" />
             </form>
@@ -126,7 +126,7 @@ ArrayList<ClienteObj> CArray =
       <div class="container">
         <div class="row">
           <div class="col-sm-12 text-center">
-            <h4 class="uppercase mb16">Listado de clientes</h4>
+            <h4 class="uppercase mb16">Listado de empleados</h4>
             <p class="lead mb64">
               Esto son todos los empleados de la plataforma.
             </p>
@@ -138,18 +138,18 @@ ArrayList<ClienteObj> CArray =
               <thead>
                 <tr>
                   <th>Id</th>
-                  <th>DUI</th>
                   <th>Nombre</th>
+                  <th>DUI</th>
                   <th>Teléfono</th>
-                  <th>Celular</th>
                   <th>Correo</th>
+                  <th>Usuario</th>
                 </tr>
               </thead>
               <tbody>
                           <%
             if(iteArray!=null)
             {
-                ClienteObj CTemp;
+                EmpleadoObj CTemp;
                 while(iteArray.hasNext())
                 {
                     CTemp = iteArray.next();
@@ -159,19 +159,19 @@ ArrayList<ClienteObj> CArray =
                       <span><%= CTemp.getId() %></span>
                     </td>
                     <td>
-                      <span><%= CTemp.getDui() %></span>
+                      <span><%= CTemp.getNombre() %> <%= CTemp.getApellido() %></span>
                     </td>
                     <td>
-                      <span><%= CTemp.getNombre() %> <%= CTemp.getApellido() %></span>
+                      <span><%= CTemp.getDui() %></span>
                     </td>
                     <td>
                       <span><%= CTemp.getTelefono() %></span>
                     </td>
                     <td>
-                      <span><%= CTemp.getCelular() %></span>
+                      <span><%= CTemp.getCorreo() %></span>
                     </td>
                     <td>
-                      <span><%= CTemp.getCorreo() %></span>
+                      <span><%= CTemp.getUsuario() %></span>
                     </td>
                     <td>
                       <a href="mempleado.php?eid=<?=$key['eid']?>" class="remove-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Modificar Empleado">
