@@ -158,7 +158,7 @@
                   <input type="text" name="usuario" class="validate-required" maxlength="30" placeholder="Usuario"/>
                   <span>Contraseña:</span>
                   <input type="password" name="password1" class="validate-required validate-igual1" maxlength="32" onkeyup="muestra_seguridad_clave(this.value, this.form)" placeholder="Contraseña" />
-                  <span>Confirmar contraseña:</span>
+                  <span>Confirmar Contraseña:</span>
                   <input type="password" name="password2" class="validate-required validate-igual2" maxlength="32" placeholder="Confirmar Contraseña" />
                   <span>Seguridad de la contraseña:</span>
                   <input type="text" name="seguridad" class="validate-required validate-seguridad" onfocus="blur()" placeholder="Seguridad de la contraseña" />

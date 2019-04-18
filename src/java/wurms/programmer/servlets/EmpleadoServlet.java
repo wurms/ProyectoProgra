@@ -68,6 +68,46 @@ public class EmpleadoServlet extends HttpServlet
                     request.getSession().setAttribute("empleados", CArray);
                     response.sendRedirect("admin/vempleados.jsp");
                 }
+            if(strFormId.equals("4"))
+            {
+                //get parameters
+                String strId = request.getParameter("id");
+                int iId = Integer.parseInt(strId);
+                
+                //access logic
+                EmpleadoLogic CLogic = new EmpleadoLogic();
+                EmpleadoObj CEmpleado = CLogic.getEmpleadoById(iId);
+                
+                //send to frontend
+                request.getSession().setAttribute("empleado", CEmpleado);
+                response.sendRedirect("admin/mempleado.jsp");
+            }
+            if(strFormId.equals("5"))
+            {
+                //get parameters
+                String strId = request.getParameter("id");
+                int id = Integer.parseInt(strId);
+                String nombre = request.getParameter("nombre");
+                String apellido = request.getParameter("apellido");
+                String dui = request.getParameter("dui");
+                String telefono = request.getParameter("telefono");
+                String correo = request.getParameter("email");
+                String usuario = request.getParameter("usuario");
+                    //access logic
+                    EmpleadoLogic CLogic = new EmpleadoLogic();
+                    int iRows = CLogic.updateEmpleadoRows(id, nombre, apellido, dui, telefono, correo, usuario);
+                    System.out.println("inser client rows: " + iRows);
+
+                    if (iRows == 1) {
+                        EmpleadoObj CEmpleado = CLogic.getEmpleadoById(id);
+
+                        //send to frontend
+                        request.getSession().setAttribute("empleado", CEmpleado);
+                        response.sendRedirect("admin/mempleado.jsp");
+                    } else {
+                        response.sendRedirect("admin/mempleado.jsp?mensaje=2");
+                    }
+            }
             
         }
     }

@@ -171,4 +171,63 @@ public class EmpleadoLogic extends Logic
         return arreglo;
         
     }
+    
+    public EmpleadoObj getEmpleadoById(int p_iId) 
+    {
+        //select * from travelsys.client;
+        DatabaseX database = getDatabase();
+        String strSql = "select * from tbempleado where eid="+p_iId+" ";
+        System.out.println(strSql);
+        ResultSet CResult = database.executeQuery(strSql);
+        EmpleadoObj CTemp = null;
+        
+        if(CResult!=null)
+        {
+            int id;
+            String nombre;
+            String apellido;
+            String dui;
+            String telefono;
+            String correo;
+            int habilitado;
+            String usuario;
+            String password;
+            
+            try 
+            {
+                while(CResult.next())
+                {
+                    id = CResult.getInt("eid");
+                    dui = CResult.getString("dui");
+                    nombre = CResult.getString("nombre");
+                    apellido = CResult.getString("apellido");
+                    telefono = CResult.getString("telefono");
+                    correo = CResult.getString("correo");
+                    password = CResult.getString("password");
+                    habilitado = CResult.getInt("habilitado");
+                    usuario = CResult.getString("usuario");
+                    
+                    CTemp = new EmpleadoObj(id, nombre, apellido, dui, telefono, correo, habilitado, usuario, password);
+                }
+            } 
+            catch (SQLException ex) 
+            {
+                Logger.getLogger(EmpleadoLogic.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        return CTemp;
+        
+    }
+    
+    public int updateEmpleadoRows(int id, String nombre, String apellido, String dui, String telefono, String correo, String usuario)
+    {
+        //INSERT INTO travelsys.client(id,name,age) VALUES(0,'pepito',24);
+        DatabaseX database = getDatabase();
+        String strSql = "update tbempleado set "
+                + "nombre = '"+nombre+"', apellido = '"+apellido+"', dui = '"+dui+"', telefono = '"+telefono+"', correo = '"+correo+"', usuario = '"+usuario+"' where eid = " + id;
+        System.out.println(strSql);
+        int iRows = database.executeNonQueryRows(strSql);
+        return iRows;
+    }
 }

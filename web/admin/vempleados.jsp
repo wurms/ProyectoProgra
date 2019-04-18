@@ -174,7 +174,7 @@ ArrayList<EmpleadoObj> CArray =
                       <span><%= CTemp.getUsuario() %></span>
                     </td>
                     <td>
-                      <a href="mempleado.php?eid=<?=$key['eid']?>" class="remove-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Modificar Empleado">
+                      <a href="../EmpleadoServlet?formid=4&id=<%= CTemp.getId() %>" class="remove-item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Modificar Empleado">
                         <i class="ti-pencil-alt"></i>
                       </a>
                     </td>
